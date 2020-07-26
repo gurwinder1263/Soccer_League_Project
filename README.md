@@ -17,3 +17,11 @@ after using the app for while.
 The creator of this application is big time soccer fan too. He enjoys all aspects of the soccer and uses this
 app in leisure time. His favorite player is Cristiano Ronaldo and his favorite team is Juventus FC (*Fino alla Fine*).
 He always had this idea of designing something like this for **free** for all users of all ages around the world.
+
+## User Stories
+
+As a user,
+
+- one want to be able to create a new team and add it to a list of teams.
+- one want to be able to select a team and add a new player to the team.
+- one want to be able to select a team and view a list of the players on that team.
