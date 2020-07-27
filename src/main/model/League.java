@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class League implements Common {
+public class League {
     public static final int SEASON_YEAR = 2020;
     public static final int MAX_NUM_TEAMS = 10;
 
@@ -26,8 +26,8 @@ public class League implements Common {
 
 
     // EFFECTS: returns the team selected by the user.
-    public Team selectTeam() {
-        // return team;
+    public String getName() {
+        return name;
     }
 
     // REQUIRES: team is already not present in the league.
@@ -47,12 +47,12 @@ public class League implements Common {
     // EFFECTS: if list of the teams contains the selected team,
 //                     - return true.
 //                     - Otherwise, return false.
-    public boolean isTeamPresent(Team team) {
-        return listOfTeams.contains(team);
-    }
-
-    // EFFECTS: displays all the existing teams in some format.
-    public void displayAll() {
-        // stub
+    public boolean isTeamPresent(Team teamChecked) {
+        for (Team team : listOfTeams) {
+            if ((team.getName()).equalsIgnoreCase(teamChecked.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

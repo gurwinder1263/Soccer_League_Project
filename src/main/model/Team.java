@@ -3,7 +3,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Team implements Common {
+public class Team {
     public static final int MAX_PLAYERS_IN_SQUAD = 25;
 
     public String name;
@@ -14,17 +14,16 @@ public class Team implements Common {
         listOfPlayers = new ArrayList<Player>(MAX_PLAYERS_IN_SQUAD);
     }
 
-    public Team(String name,Player player,Player nextPlayer) {
+    public Team(String name, Player player, Player nextPlayer) {
         this.name = name;
         listOfPlayers = new ArrayList<Player>(MAX_PLAYERS_IN_SQUAD);
-        listOfPlayers.add(0,player);
-        listOfPlayers.add(1,nextPlayer);
+        listOfPlayers.add(0, player);
+        listOfPlayers.add(1, nextPlayer);
     }
 
-    // EFFECTS: returns the player selected by the user from the team.
-    public Player selectPlayer() {
-        Player player
-        return player;
+    // EFFECTS: returns the player's name.
+    public String getName() {
+        return name;
     }
 
     // REQUIRES: player is already not present in the team.
@@ -46,13 +45,12 @@ public class Team implements Common {
     // EFFECTS: if the team contains the player,
     //                     - return true.
     //                     - Otherwise, return false.
-    public boolean isPlayerPresent(Player player) {
-        return listOfPlayers.contains(player);
+    public boolean isPlayerPresent(Player playerChecked) {
+        for (Player player : listOfPlayers) {
+            if ((player.getName()).equalsIgnoreCase(playerChecked.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
-
-    // EFFECTS: displays all the existing players in some format.
-    public void displayAll() {
-        // stub
-    }
-
 }

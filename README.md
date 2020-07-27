@@ -26,5 +26,5 @@ As a user,
 - one want to be able to create a new team and add it to a list of teams.
 - one want to be able to select a team and add a new player to the team.
 - one want to be able to select a team and view a list of the players on that team.
-- one want to be able to select a player on a team and add a new statistic for that player,
-  for example, the number of goals scored in a game
+- one want to be able to select a player on a team and train player to increase the overall soccer rating.
+  for example, a training session would enhance skills which would increase overall rating for that player.
