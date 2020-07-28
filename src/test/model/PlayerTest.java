@@ -27,7 +27,7 @@ public class PlayerTest {
     void trainPlayerTest() {
         player6.trainPlayer();
         assertEquals(90, player6.getSoccerRating());
-        assertEquals("CAM", player6.getPosition());
+        assertEquals("Kai Havertz", player6.getName());
     }
 }
 

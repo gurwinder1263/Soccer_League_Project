@@ -22,10 +22,6 @@ public class Player {
         return name;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
     public int getSoccerRating() {
         return soccerRating;
     }
