@@ -1,8 +1,8 @@
 package model;
 
-
 import java.util.ArrayList;
 
+// Represents  a team with name, and list of players playing for it.
 public class Team {
     public static final int MAX_PLAYERS_IN_SQUAD = 25;
 
@@ -31,14 +31,6 @@ public class Team {
     // EFFECTS: adds the new player to the team.
     public void signNewPlayer(Player newPlayer) {
         listOfPlayers.add(newPlayer);
-
-    }
-
-    // REQUIRES: player is already present in the team.
-    // MODIFIES: this
-    // EFFECTS: sells the existing player out of the team.
-    public void sellPlayer(Player existingPlayer) {
-        listOfPlayers.remove(existingPlayer);
 
     }
 

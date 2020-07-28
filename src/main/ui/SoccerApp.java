@@ -5,6 +5,7 @@ import model.*;
 import java.util.Scanner;
 
 // Fantasy Soccer Application
+// created with the use of class TellerApp in Project <AccountNotRobust>.
 public class SoccerApp {
     private static League champLeague;
     private Team activeTeam;
@@ -20,6 +21,7 @@ public class SoccerApp {
 
     }
 
+    //EFFECTS: creates a object for Class League from real world data.
     private League createLeague() {
         Player ronaldo = new Player("Cristiano Ronaldo", 35, "LW", 94);
         Player dybala = new Player("Paulo Dybala", 26, "CAM", 89);
@@ -31,8 +33,10 @@ public class SoccerApp {
         return league;
     }
 
+    // REQUIRES: parameter a to one of {0,1,2,3,4,5}.
     // MODIFIES: this
-    // EFFECTS: processes user input
+    // EFFECTS: processes user input based on parameter a.
+    // 0 is passed in it when using this method for first time; 1, 2, 3, 4 and 5 are passed for subsequent uses.
     private void controlFlow(int a) {
         boolean keepGoing = true;
         String command = null;
@@ -40,7 +44,7 @@ public class SoccerApp {
 
         while (keepGoing) {
             displayMenu(a);
-            command = input.next();
+            command = input.nextLine();
             command = command.toLowerCase();
 
             if (command.equals("e")) {
@@ -52,6 +56,8 @@ public class SoccerApp {
 
     }
 
+    // REQUIRES: parameter a to one of {0,1,2,3,4,5}.
+    // EFFECTS: displays the type of menu depending on the value of a parameter.
     private void displayMenu(int a) {
         if (a == 0) {
             displayMainMenu();
@@ -68,8 +74,7 @@ public class SoccerApp {
         }
     }
 
-
-    // EFFECTS: displays main menu of options to user
+    // EFFECTS: displays main menu of options to user.
     private void displayMainMenu() {
         System.out.println("\n MAIN MENU. Choose from:");
         System.out.println("\tm -> manage teams");
@@ -85,15 +90,16 @@ public class SoccerApp {
         System.out.println("\te -> back");
     }
 
-    // EFFECTS: displays all teams to select one after team menu to user
+    // EFFECTS: displays all teams to select one after team menu.
     private void displayTeamSelect() {
         System.out.println("\n" + champLeague.name + " has " + champLeague.listOfTeams.size() + " teams:");
         for (Team team : champLeague.listOfTeams) {
-            System.out.println("\t" + (team.name.substring(0,3)).toLowerCase() + " -> " + team.name);
+            System.out.println("\t" + (team.name.substring(0, 3)).toLowerCase() + " -> " + team.name);
         }
         System.out.println("\te -> back");
     }
 
+    // EFFECTS: displays player menu for selected team after teamSelect menu.
     private void displayPlayerMenu() {
         System.out.println("\nChoose options for team " + activeTeam.name);
         System.out.println("\tsp -> to select any player of team " + activeTeam.name + " for training");
@@ -101,24 +107,24 @@ public class SoccerApp {
         System.out.println("\te -> back");
     }
 
+    // EFFECTS: displays all players of selected team to select one.
     private void displayPlayerSelect() {
         System.out.println("\n" + activeTeam.name + " has " + activeTeam.listOfPlayers.size() + " players:");
         for (Player player : activeTeam.listOfPlayers) {
             System.out.println("\t" + (player.name.substring(0, 3)).toLowerCase() + " -> " + player.name);
         }
         System.out.println("\te -> back");
-        //System.out.println("\tmadrid -> Real Marid FC");
     }
 
-
+    // EFFECTS: displays player training menu for selected player.
     private void displayPlayerTrainingMenu() {
         System.out.println("\nFor player " + activePlayer.name + ":");
         System.out.println("\tEnter y to train");
         System.out.println("\tEnter e to go back to previous");
     }
 
-    // MODIFIES: this
-    // EFFECTS: processes user command
+    // REQUIRES: parameter a to one of {0,1,2,3,4,5}.
+    // EFFECTS: processes user command based on parameter a.
     private void processCmd(String command, int a) {
         if (a == 0) {
             processMainCommand(command);
@@ -135,6 +141,7 @@ public class SoccerApp {
         }
     }
 
+    // EFFECTS: processes user command for Main Menu.
     private void processMainCommand(String command) {
         if (command.equals("m")) {
             runTeamMenu();
@@ -145,6 +152,7 @@ public class SoccerApp {
         }
     }
 
+    // EFFECTS: prints all the teams in the League.
     private void displayTeamNames() {
         System.out.println(champLeague.name + " has " + champLeague.listOfTeams.size() + " teams:");
         for (Team team : champLeague.listOfTeams) {
@@ -152,29 +160,35 @@ public class SoccerApp {
         }
     }
 
+    // EFFECTS: runs Team Menu after user selects m to manage teams.
     private void runTeamMenu() {
         controlFlow(1);
     }
 
+    // EFFECTS: processes user command for Team Menu.
     private void processTeamCmd(String command) {
         if (command.equals("st")) {
             runTeamSelect();
         } else if (command.equals("at")) {
             newTeam();
+            runTeamMenu();
         } else {
             System.out.println("Selection not valid...");
         }
     }
 
+    // EFFECTS: runs Team Select Menu after user selects st to select one of the teams.
     private void runTeamSelect() {
         controlFlow(2);
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: After user selects at to add new team to the League, adds new team if team is already not there.
+    //                     - Otherwise, sends message to the user to inform about team's presence in League.
     private void newTeam() {
         input = new Scanner(System.in);
         System.out.println("Enter the name of new team? Please enter at least 3 characters.");
-        String command = input.next();
+        String command = input.nextLine();
 
         Team newTeam = new Team(command);
         if (!champLeague.isTeamPresent(newTeam)) {
@@ -184,10 +198,12 @@ public class SoccerApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user command for Team Select Menu to make team selected by user to be active team.
     private void processTeamSelectCmd(String command) {
         int a = 0;
         for (Team team : champLeague.listOfTeams) {
-            if (command.equals((team.name.substring(0,3)).toLowerCase())) {
+            if (command.equals((team.name.substring(0, 3)).toLowerCase())) {
                 activeTeam = team;
                 a = 1;
                 break;
@@ -201,26 +217,30 @@ public class SoccerApp {
         }
     }
 
-
+    // EFFECTS: runs Player Menu for selected team.
     public void runPlayerMenu() {
         controlFlow(3);
     }
 
-
+    // EFFECTS: processes user command for Player Menu.
     private void processPlayerCmd(String command) {
         if (command.equals("sp")) {
             runPlayerSelect();
         } else if (command.equals("ap")) {
             newPlayer();
+            runPlayerMenu();
         } else {
             System.out.println("Selection not valid...");
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: After user selects ap to add new player, adds new player if player is already not there.
+    //                     - Otherwise, sends message to the user to inform about player's presence in the team.
     private void newPlayer() {
         input = new Scanner(System.in);
         System.out.println("Enter the name of new player?");
-        String inpName = input.next();
+        String inpName = input.nextLine();
         System.out.println("Enter the age of " + inpName + "?");
         int inpAge = Integer.parseInt(input.next());
         System.out.println("Enter the position of the player such as ST, CM, CB, LW, CDM?");
@@ -236,10 +256,13 @@ public class SoccerApp {
         }
     }
 
+    // EFFECTS: runs Player Select Menu after user selects sp to select one of the players.
     public void runPlayerSelect() {
         controlFlow(4);
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user command for Player Select Menu to make player selected by user to be active player.
     public void processPlayerSelectCmd(String command) {
         int a = 0;
         for (Player player : activeTeam.listOfPlayers) {
@@ -258,19 +281,22 @@ public class SoccerApp {
         }
     }
 
+    // EFFECTS: runs Player Training Menu for selected player.
     public void runPlayerTrainingMenu() {
         controlFlow(5);
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: processes user command for Player Training Menu. if active player  is trainable
+    //                    - train him and prints new rating.
+    //                    - Otherwise, prints message to inform user that player has reached his potential.
     public void processPlayerTrainingCmd(String command) {
         if (activePlayer.isTrainable()) {
             activePlayer.trainPlayer();
-            System.out.println("The player " + activePlayer.name + " has new soccer rating of " +
-                    activePlayer.getSoccerRating() + ".");
+            System.out.println(activePlayer.name + "'s new soccer rating is " + activePlayer.getSoccerRating() + ".");
         } else {
-            System.out.println("The player " + activePlayer.name + " has reached his potential. " +
-                    "He can not be trained anymore.");
+            System.out.println("The player " + activePlayer.name + " has reached his potential.");
+            System.out.println("He can not be trained anymore.");
         }
     }
 

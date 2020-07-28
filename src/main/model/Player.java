@@ -30,14 +30,15 @@ public class Player {
         return soccerRating;
     }
 
-    public void changePosition(String newPosition) {
-        position = newPosition;
-    }
-
+    // EFFECTS: if the player can be trained ( if player has not reached his maximum rating of 98, 99 or, 100)
+    //                     - return true.
+    //                     - Otherwise, return false.
     public boolean isTrainable() {
         return soccerRating <= (MAX_RATING - RATING_INCREASE_PER_TRAINING);
     }
 
+    // MODIFIES: this
+    // EFFECTS: increases overall rating based on increase in one training session.
     public void trainPlayer() {
         soccerRating = soccerRating + RATING_INCREASE_PER_TRAINING;
     }
