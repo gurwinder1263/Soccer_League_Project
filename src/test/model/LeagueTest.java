@@ -44,4 +44,11 @@ public class LeagueTest {
 
     }
 
+    @Test
+    void teamPrint() {
+        league2.addNewTeam(team3);
+        for (Team tm : league2.listOfTeams) {
+            System.out.println(tm);
+        }
+    }
 }

@@ -1,19 +1,30 @@
 package model;
 
+import persistence.*;
+
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 // Represents  a team with name, and list of players playing for it.
-public class Team {
+public class Team implements Saveable {
     public static final int MAX_PLAYERS_IN_SQUAD = 25;
 
     public String name;
     public ArrayList<Player> listOfPlayers;
 
+    // EFFECTS: constructs newly created Team with a name and empty list of players.
     public Team(String name) {
         this.name = name;
         listOfPlayers = new ArrayList<Player>(MAX_PLAYERS_IN_SQUAD);
     }
 
+    // EFFECTS: constructs newly created Team with a name and list of players.
+    public Team(String name, ArrayList<Player> players) {
+        this.name = name;
+        listOfPlayers = players;
+    }
+
+    // EFFECTS: constructs newly created Team with a name and two players.
     public Team(String name, Player player, Player nextPlayer) {
         this.name = name;
         listOfPlayers = new ArrayList<Player>(MAX_PLAYERS_IN_SQUAD);
@@ -44,5 +55,22 @@ public class Team {
             }
         }
         return false;
+    }
+
+    @Override
+    public void save(PrintWriter printWriter) {
+        printWriter.print(name);
+        printWriter.print(Reader.DELIMITER_1);
+        for (Player player : listOfPlayers) {
+            printWriter.print(player.getName());
+            printWriter.print(Reader.DELIMITER_2);
+            printWriter.print(player.age);
+            printWriter.print(Reader.DELIMITER_2);
+            printWriter.print(player.position);
+            printWriter.print(Reader.DELIMITER_2);
+            printWriter.print(player.getSoccerRating());
+            printWriter.print(Reader.DELIMITER_1);
+        }
+        printWriter.println();
     }
 }

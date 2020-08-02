@@ -16,6 +16,11 @@ public class League {
         listOfTeams = new ArrayList<>(MAX_NUM_TEAMS);
     }
 
+    // EFFECTS: constructs newly created League with a name and list of teams.
+    public League(String name, ArrayList<Team> teams) {
+        this.name = name;
+        listOfTeams = teams;
+    }
 
     // EFFECTS: constructs newly created League with a name and two teams.
     public League(String name, Team team1, Team team2) {

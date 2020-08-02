@@ -1,12 +1,20 @@
 package ui;
 
 import model.*;
+import persistence.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 import java.util.Scanner;
 
 // Fantasy Soccer Application
 // created with the use of class TellerApp in Project <AccountNotRobust>.
 public class SoccerApp {
+    private static final String TEAMS_FILE = "./data/Teams.txt";
+
     private static League champLeague;
     private Team activeTeam;
     private Player activePlayer;
@@ -14,9 +22,12 @@ public class SoccerApp {
 
     // EFFECTS: runs the Soccer application
     public SoccerApp() {
-        champLeague = createLeague();
         System.out.println("\nWelcome to My Fantasy Soccer League");
+        //champLeague = createLeague();
+        loadTeams();
         controlFlow(0);
+        saveTeams();
+        System.out.println();
         System.out.println("\nCiao");
 
     }
@@ -54,6 +65,35 @@ public class SoccerApp {
             }
         }
 
+    }
+
+    // EFFECTS: saves state of all teams to TEAMS_FILE
+    private void saveTeams() {
+        try {
+            Writer writer = new Writer(new File(TEAMS_FILE));
+            for (Team team : champLeague.listOfTeams) {
+                writer.write(team);
+            }
+            writer.close();
+            System.out.println("Teams saved to file " + TEAMS_FILE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save teams to " + TEAMS_FILE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            // this is due to a programming error
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads accounts from ACCOUNTS_FILE, if that file exists;
+    // otherwise initializes accounts with default values
+    private void loadTeams() {
+        try {
+            ArrayList<Team> teams = Reader.readTeams(new File(TEAMS_FILE));
+            champLeague = new League("Uefa Champions League",teams);
+        } catch (IOException e) {
+            champLeague = createLeague();
+        }
     }
 
     // REQUIRES: parameter a to one of {0,1,2,3,4,5}.
