@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 // Unit tests for Leaque class
@@ -10,6 +12,7 @@ public class LeagueTest {
 
     League league1;
     League league2;
+    League league3;
     Team team1;
     Team team2;
     Team team3;
@@ -24,6 +27,8 @@ public class LeagueTest {
         team4 = new Team("LiverpoolFC");
         league1 = new League("La Liga");
         league2 = new League("Premier League", team1, team2);
+        league3 = new League("Serie A", new ArrayList<>() );
+
     }
 
     @Test
@@ -47,6 +52,7 @@ public class LeagueTest {
     @Test
     void teamPrint() {
         league2.addNewTeam(team3);
+        assertEquals("Premier League",league2.getName());
         for (Team tm : league2.listOfTeams) {
             System.out.println(tm);
         }

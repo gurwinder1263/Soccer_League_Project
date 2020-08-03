@@ -14,6 +14,10 @@ public class Reader {
     public static final String DELIMITER_1 = ";";
     public static final String DELIMITER_2 = ",";
 
+    public Reader(){
+        ///
+    }
+
     // EFFECTS: returns a list of Teams parsed from file; throws
     // IOException if an exception is raised when opening / reading from file
     public static ArrayList<Team> readTeams(File file) throws IOException {

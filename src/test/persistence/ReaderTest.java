@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ReaderTest {
     @Test
     void testParseTeamsFile1() {
+        new Reader();
         try {
             ArrayList<Team> teams = Reader.readTeams(new File("./data/testTeamsFile1.txt"));
             Team team1 = teams.get(0);
