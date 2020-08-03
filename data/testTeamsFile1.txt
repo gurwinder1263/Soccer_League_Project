@@ -1,0 +1,2 @@
+Liverpool FC;Sadio Mane,28,ST,90;Roberto Firmino,28,CF,87;
+FC Bayern Munich;Robert Lewandowski,31,ST,92;Joshua Kimmich,26,CM,91;

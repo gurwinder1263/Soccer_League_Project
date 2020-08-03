@@ -1,0 +1,2 @@
+FC Barcelona;Lionel Messi,33,RW,94;Gerard Pique,34,CB,86;
+Atletico Madrid FC;Jan Oblak,27,GK,90;Alvaro Morata,28,ST,85;

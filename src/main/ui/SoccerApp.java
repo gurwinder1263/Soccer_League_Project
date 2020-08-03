@@ -23,13 +23,26 @@ public class SoccerApp {
     // EFFECTS: runs the Soccer application
     public SoccerApp() {
         System.out.println("\nWelcome to My Fantasy Soccer League");
-        //champLeague = createLeague();
-        loadTeams();
+        promptUserToLoadOrDefault();
         controlFlow(0);
         saveTeams();
-        System.out.println();
         System.out.println("\nCiao");
 
+    }
+
+    private void promptUserToLoadOrDefault() {
+        input = new Scanner(System.in);
+        System.out.println("\nThere are saved teams from last time.");
+        System.out.println("\tEnter     y          -> to load saved teams.");
+        System.out.println("\tEnter any other key  -> to use default teams.");
+        String userInput = input.nextLine();
+        userInput = userInput.toLowerCase();
+
+        if (userInput.equals("y")) {
+            loadTeams();
+        } else {
+            champLeague = createLeague();
+        }
     }
 
     //EFFECTS: creates a object for Class League from real world data.
@@ -75,9 +88,9 @@ public class SoccerApp {
                 writer.write(team);
             }
             writer.close();
-            System.out.println("Teams saved to file " + TEAMS_FILE);
+            System.out.println("All of the teams have been saved properly.");
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to save teams to " + TEAMS_FILE);
+            System.out.println("Unable to save teams to destination file.");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             // this is due to a programming error
@@ -119,7 +132,7 @@ public class SoccerApp {
         System.out.println("\n MAIN MENU. Choose from:");
         System.out.println("\tm -> manage teams");
         System.out.println("\tv -> view teams");
-        System.out.println("\te -> quit");
+        System.out.println("\te -> save and quit");
     }
 
     // EFFECTS: displays team menu after main menu to user
