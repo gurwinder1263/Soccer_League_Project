@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+// Junit tests for Writer class
 public class WriterTest {
     private static final String TEST_FILE = "./data/testTeamsFile3.txt";
     private Writer testWriter;

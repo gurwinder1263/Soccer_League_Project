@@ -57,6 +57,7 @@ public class Team implements Saveable {
         return false;
     }
 
+    // EFFECTS: saves team name and list of players in it using delimiters.
     @Override
     public void save(PrintWriter printWriter) {
         printWriter.print(name);

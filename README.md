@@ -28,5 +28,5 @@ As a user,
 - one want to be able to select a team and view a list of the players on that team.
 - one want to be able to select a player on a team and train player to increase the overall soccer rating.
   for example, a training session would enhance skills which would increase overall rating for that player.
-- one want to be able to save my league (all teams including its players) to file.
-- one want to be able to optionally load my league from file when the app  restarts.
+- one want to be able to save league (all teams including its players) to file.
+- one want to be able to optionally load league from file when the app  restarts.

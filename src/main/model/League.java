@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 // Represents  a League with name, and list of teams contained in it.
 public class League {
-    public static final int SEASON_YEAR = 2020;
-    public static final int MAX_NUM_TEAMS = 10;
+    private static final int SEASON_YEAR = 2020;
+    private static final int MAX_NUM_TEAMS = 10;
 
-    public String name; // League name
+    private String name; // League name
     public ArrayList<Team> listOfTeams;
 
     // EFFECTS: constructs newly created League with a name and empty list of teams.

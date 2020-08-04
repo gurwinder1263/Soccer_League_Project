@@ -9,14 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// A reader that can read account data from a file.
+// A reader that can read team data from a file.
 public class Reader {
     public static final String DELIMITER_1 = ";";
     public static final String DELIMITER_2 = ",";
 
-    public Reader(){
-        ///
-    }
 
     // EFFECTS: returns a list of Teams parsed from file; throws
     // IOException if an exception is raised when opening / reading from file
@@ -40,7 +37,6 @@ public class Reader {
             ArrayList<String> lineComponents = splitString(line,DELIMITER_1);
             teams.add(parseTeam(lineComponents));
         }
-
         return teams;
     }
 
@@ -50,11 +46,11 @@ public class Reader {
         return new ArrayList<>(Arrays.asList(splits));
     }
 
-    // REQUIRES: components has size 2 where element 0 represents the
-    // id of the next account to be constructed, element 1 represents
-    // the id, elements 2 represents the name and element 3 represents
-    // the balance of the account to be constructed
-    // EFFECTS: returns an account constructed from components
+    // REQUIRES: components has size 1 where element 0 represents the
+    // name of the team to be constructed, rest of the elements
+    // collectively represents list of players such element 1 represents
+    // first player, element 2 represents second player and so on.
+    // EFFECTS: returns team constructed from components
     private static Team parseTeam(ArrayList<String> components) {
         String name = components.get(0);
         ArrayList<Player> players = new ArrayList<>();
@@ -66,6 +62,11 @@ public class Reader {
         return new Team(name,players);
     }
 
+    // REQUIRES: playerStats has size 4 corresponding to player characteristics
+    // where element 0 represents the player name, element 1 represents
+    // player's age, element 2 represents position and element 3 represents
+    // player's average rating.
+    // EFFECTS: returns player constructed from player's components
     private static Player parsePlayer(ArrayList<String> playerStats) {
         String name = playerStats.get(0);
         int age = Integer.parseInt(playerStats.get(1));

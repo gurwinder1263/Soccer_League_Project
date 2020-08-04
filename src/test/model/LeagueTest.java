@@ -50,11 +50,11 @@ public class LeagueTest {
     }
 
     @Test
-    void teamPrint() {
+    void printTeamName() {
         league2.addNewTeam(team3);
         assertEquals("Premier League",league2.getName());
         for (Team tm : league2.listOfTeams) {
-            System.out.println(tm);
+            System.out.println(tm.getName());
         }
     }
 }

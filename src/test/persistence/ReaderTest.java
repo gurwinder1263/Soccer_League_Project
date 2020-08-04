@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+// Junit tests for Reader class
 public class ReaderTest {
     @Test
     void testParseTeamsFile1() {
-        new Reader();
         try {
             ArrayList<Team> teams = Reader.readTeams(new File("./data/testTeamsFile1.txt"));
             Team team1 = teams.get(0);
