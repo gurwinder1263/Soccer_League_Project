@@ -1,13 +1,16 @@
 package ui;
 
-import model.*;
-import persistence.*;
+import model.League;
+import model.Player;
+import model.Team;
+import persistence.Reader;
+import persistence.Writer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // Fantasy Soccer Application

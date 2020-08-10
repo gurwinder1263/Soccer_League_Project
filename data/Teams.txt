@@ -1,3 +1,2 @@
-Juventus FC;Cristiano Ronaldo,35,LW,94;Paulo Dybala,26,CAM,89;
-Real Madrid FC;Sergio Ramos,34,CB,88;Karim Benzema,32,ST,86;
-Liverpool;Sadio Mane,27,ST,96;
+Juventus FC;Cristiano Ronaldo,35,LW,100;Paulo Dybala,26,CAM,89;
+Real Madrid FC;Sergio Ramos,34,CB,88;Karim Benzema,32,ST,86;Harpreet,20,ST,100;
