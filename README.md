@@ -30,3 +30,14 @@ As a user,
   for example, a training session would enhance skills which would increase overall rating for that player.
 - one want to be able to save league (all teams including its players) to file.
 - one want to be able to optionally load league from file when the app  restarts.
+
+Instructions for Grader
+- You can generate the first required event by entering the name of a new player and then,  clicking (add new Player)
+  button to add a player to the team. 
+- You can generate the second required event by selecting the player fom the player list and then, clicking 
+  train button to increase hi soccer rating. 
+- You can locate my visual component by training a player(i.e when you press train player button, you will see
+  image of a player training). 
+- You can save the state of my application by clicking on (Save and Quit) button which appears on the second screen.
+- You can reload the state of my application by clicking on (Load Save Teams) button which appears at the start
+of the app.

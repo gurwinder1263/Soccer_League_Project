@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a panel displayed when user starts the app.
 public class MainPanel extends JPanel implements ActionListener {
     public FootballApp frame;
     public JButton loadTeams;
@@ -38,6 +39,9 @@ public class MainPanel extends JPanel implements ActionListener {
 
     }
 
+    // MODIFIES: this.
+    // EFFECTS: loads saved teams or uses default teams when corresponding
+    //         ActionListener is involved.
     @Override
     public void actionPerformed(ActionEvent ae) {
         String action = ae.getActionCommand();

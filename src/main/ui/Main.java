@@ -1,6 +1,6 @@
 package ui;
 
-// Represents a class to start the SoccerApp.
+// Represents a class to start the FootballApp.
 // inspired by class TellerApp in Project <AccountNotRobust>
 
 public class Main {

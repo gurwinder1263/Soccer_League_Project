@@ -8,28 +8,22 @@ import persistence.Writer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-
+// Fantasy Soccer Application
+// created with the use of class TellerApp in Project <AccountNotRobust>.
 public class FootballApp extends JFrame {
 
     private static final String TEAMS_FILE = "./data/Teams.txt";
-    public static final int WIDTH = 600;
-    public static final int HEIGHT = 400;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 800;
     public static League champLeague;
     private Team activeTeam;
     private Player activePlayer;
-    private Scanner input;
-    private MainPanel mp;
-    private TeamsMenuPanel tmp;
-    private TeamsPanel tp;
 
 
     // Constructs main window
@@ -37,9 +31,8 @@ public class FootballApp extends JFrame {
     public FootballApp() {
         super("Fantasy Soccer App");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mp = new MainPanel(this);
+        MainPanel mp = new MainPanel(this);
         add(mp,BorderLayout.CENTER,0);
-        addKeyListener(new KeyHandler());
         pack();
         centreOnScreen();
         setVisible(true);
@@ -55,30 +48,38 @@ public class FootballApp extends JFrame {
         return this.HEIGHT;
     }
 
+    //MODIFIES:this
+    //EFFECTS: switches the panel view to Team Menu Panel.
     public void switchToTeamsMenuPanel() {
-        tmp = new TeamsMenuPanel(this);
+        TeamsMenuPanel tmp = new TeamsMenuPanel(this);
         add(tmp, BorderLayout.CENTER);
         pack();
         centreOnScreen();
         setVisible(true);
     }
 
+    //MODIFIES:this
+    //EFFECTS: switches the panel view to Teams Panel.
     public void switchToTeamsPanel() {
-        tp = new TeamsPanel(this);
+        TeamsPanel tp = new TeamsPanel(this);
         add(tp, BorderLayout.CENTER);
         pack();
         centreOnScreen();
         setVisible(true);
     }
 
-    public void switchToPlayersPanel(String tmname) {
-        PlayersPanel pp = new PlayersPanel(this,tmname);
+    //MODIFIES:this
+    //EFFECTS: switches the panel view to Players Panel.
+    public void switchToPlayersPanel(String tmName) {
+        PlayersPanel pp = new PlayersPanel(this,tmName);
         add(pp, BorderLayout.CENTER);
         pack();
         centreOnScreen();
         setVisible(true);
     }
 
+    //MODIFIES:this
+    //EFFECTS: switches the panel view to Exit Panel.
     public void switchToExitPanel() {
         ExitPanel ep = new ExitPanel(this);
         add(ep, BorderLayout.CENTER);
@@ -96,6 +97,7 @@ public class FootballApp extends JFrame {
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
     }
 
+    //MODIFIES: this
     //EFFECTS: creates a object of League class from real world data.
     public void createLeague() {
         Player ronaldo = new Player("Cristiano Ronaldo", 35, "LW", 94);
@@ -133,18 +135,6 @@ public class FootballApp extends JFrame {
             champLeague = new League("Uefa Champions League",teams);
         } catch (IOException e) {
             createLeague();
-        }
-    }
-
-
-
-    /*
-     * A key handler to respond to key events
-     */
-    private class KeyHandler extends KeyAdapter {
-        @Override
-        public void keyPressed(KeyEvent e) {
-           // game.keyPressed(e.getKeyCode());
         }
     }
 }

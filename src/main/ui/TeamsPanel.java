@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+// Represents a teams panel displayed to user for options.
 public class TeamsPanel extends JPanel implements ActionListener, ListSelectionListener {
     public FootballApp frame;
     public JButton newTeam;
@@ -22,14 +22,13 @@ public class TeamsPanel extends JPanel implements ActionListener, ListSelectionL
     private JTextField selTeamText;
 
 
-    // EFFECTS: Constructs a main panel with size and background colour of panel,
+    // EFFECTS: Constructs a teams panel with size and background colour of panel,
     //           updates this with the user selection
     public TeamsPanel(FootballApp frame) {
         this.frame = frame;
         setPreferredSize(new Dimension(frame.getWidth(),frame.getHeight()));
         //setBackground(Color.lightGray);
         setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        //this.setLayout(new GridLayout(7,1,5,5));
         this.setLayout(null);
         topText = new JLabel("Teams playing in the Uefa Champions league are:");
         topText.setFont(new Font("Arial", 20, 20));
@@ -44,14 +43,15 @@ public class TeamsPanel extends JPanel implements ActionListener, ListSelectionL
         add(scrollPane);
         teamList.setVisibleRowCount(5);
         teamList.setFixedCellWidth(100);
-        teamList.setFixedCellHeight(25);
+        teamList.setFixedCellHeight(40);
         teamList.addListSelectionListener(this);
-        teamList.setBounds(10,110,100,150);
-        add(teamList);
+        scrollPane.setBounds(10,110,200,150);
         setVisible(true);
         addComponents();
     }
 
+    //EFFECTS: initialize rest of the fields that are not dealt in the constructor.
+    //         adds them to the panel.
     public void addComponents() {
         newTeamText = new JTextField(10);
         selTeamText = new JTextField(10);
@@ -64,11 +64,11 @@ public class TeamsPanel extends JPanel implements ActionListener, ListSelectionL
         back = new JButton("Go Back");
         back.addActionListener(this);
         back.setActionCommand("back");
-        newTeamText.setBounds(150,110,200,50);
-        newTeam.setBounds(150,170,200,50);
+        newTeamText.setBounds(250,110,200,50);
+        newTeam.setBounds(250,170,200,50);
         selTeamText.setBounds(10,270,200,50);
         selTeam.setBounds(10,330,200,50);
-        back.setBounds(350,350,200,50);
+        back.setBounds(600,600,100,30);
         this.add(newTeamText);
         this.add(newTeam);
         this.add(selTeamText);
@@ -84,11 +84,16 @@ public class TeamsPanel extends JPanel implements ActionListener, ListSelectionL
         if (!FootballApp.champLeague.isTeamPresent(newTeam)) {
             FootballApp.champLeague.addNewTeam(newTeam);
             model.addElement(newTmName);
+            newTeamText.setText("");
         } else {
-            System.out.println("This team is already playing in the league.");
+            newTeamText.setText("Already playing");
         }
+
     }
 
+    // MODIFIES: this.
+    // EFFECTS: adds new team, go back to previous OR views players in the team when corresponding
+    //         ActionListener is involved.
     @Override
     public void actionPerformed(ActionEvent ae) {
         String action = ae.getActionCommand();
@@ -106,9 +111,10 @@ public class TeamsPanel extends JPanel implements ActionListener, ListSelectionL
                 frame.switchToPlayersPanel(selTmName);
             }
         }
-
     }
 
+    // MODIFIES: this.
+    // EFFECTS: adds the selected team from the list to JTextField.
     @Override
     public void valueChanged(ListSelectionEvent e) {
         selTeamText.setText(teamList.getSelectedValue() + "");
