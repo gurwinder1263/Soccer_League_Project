@@ -1,6 +1,7 @@
-package ui;
+package ui.gui;
 
-import model.*;
+import exceptions.NotTrainableException;
+import model.Player;
 import model.Team;
 
 import javax.swing.*;
@@ -144,13 +145,13 @@ public class PlayersPanel extends JPanel implements ActionListener, ListSelectio
     //                    - train him and displays new rating and training message.
     //                    - Otherwise, messages to inform user that player has reached his potential.
     public void playerTraining() {
-        if (activePlayer.isTrainable()) {
+        try {
             activePlayer.trainPlayer();
             ImageIcon image = new ImageIcon("./data/tinyTraining.png");
             trainingImage.setIcon(image);
             trainingMessage.setText(activePlayer.name + " has trained.");
             playerRatingField.setText(activePlayer.soccerRating + "");
-        } else {
+        } catch (NotTrainableException e) {
             trainingMessage.setText(activePlayer.name + " has reached his potential.");
         }
     }

@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +46,7 @@ public class TeamsMenuPanel extends JPanel implements ActionListener {
         if (action.equals("manage")) {
             frame.switchToTeamsPanel();
         } else if (action.equals("save")) {
-            frame.saveTeams();
+            FootballApp.data.saveTeams(FootballApp.champLeague);
             frame.switchToExitPanel();
         }
 

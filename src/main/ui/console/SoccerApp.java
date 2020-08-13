@@ -1,16 +1,10 @@
-package ui;
+package ui.console;
 
+import exceptions.NotTrainableException;
 import model.League;
 import model.Player;
 import model.Team;
-import persistence.Reader;
-import persistence.Writer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 // Fantasy Soccer Application
@@ -22,13 +16,17 @@ public class SoccerApp {
     private Team activeTeam;
     private Player activePlayer;
     private Scanner input;
+    private DisplayManager display;
+    private DataManager data;
 
     // EFFECTS: runs the Soccer application
     public SoccerApp() {
         System.out.println("\nWelcome to My Fantasy Soccer League");
+        display = new DisplayManager();
+        data = new DataManager();
         promptUserToLoadOrDefault();
         controlFlow(0);
-        saveTeams();
+        data.saveTeams(champLeague);
         System.out.println("\nCiao");
     }
 
@@ -36,30 +34,17 @@ public class SoccerApp {
     // EFFECTS: asks user to load saved teams or start with default ones.
     private void promptUserToLoadOrDefault() {
         input = new Scanner(System.in);
-        System.out.println("\nThere are saved teams from last time.");
-        System.out.println("\tEnter     y          -> to load saved teams.");
-        System.out.println("\tEnter any other key  -> to use default teams.");
+        display.displayLoadOrDefault();
         String userInput = input.nextLine();
         userInput = userInput.toLowerCase();
 
         if (userInput.equals("y")) {
-            loadTeams();
+            champLeague = data.loadTeams();
         } else {
-            champLeague = createLeague();
+            champLeague = data.createLeague();
         }
     }
 
-    //EFFECTS: creates a object of League class from real world data.
-    private League createLeague() {
-        Player ronaldo = new Player("Cristiano Ronaldo", 35, "LW", 94);
-        Player dybala = new Player("Paulo Dybala", 26, "CAM", 89);
-        Player ramos = new Player("Sergio Ramos", 34, "CB", 88);
-        Player benzema = new Player("Karim Benzema", 32, "ST", 86);
-        Team juventus = new Team("Juventus FC", ronaldo, dybala);
-        Team madrid = new Team("Real Madrid FC", ramos, benzema);
-        League league = new League("UEFA Champions League", juventus, madrid);
-        return league;
-    }
 
     // REQUIRES: parameter a to one of {0,1,2,3,4,5}.
     // MODIFIES: this
@@ -83,101 +68,24 @@ public class SoccerApp {
         }
     }
 
-    // EFFECTS: saves state of all teams to TEAMS_FILE
-    private void saveTeams() {
-        try {
-            Writer writer = new Writer(new File(TEAMS_FILE));
-            for (Team team : champLeague.listOfTeams) {
-                writer.write(team);
-            }
-            writer.close();
-            System.out.println("All of the teams have been saved properly.");
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save teams to destination file.");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            // this is due to a programming error
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: loads teams data from TEAMS_FILE, if that file exists;
-    // otherwise initializes the league with default teams.
-    private void loadTeams() {
-        try {
-            ArrayList<Team> teams = Reader.readTeams(new File(TEAMS_FILE));
-            champLeague = new League("Uefa Champions League",teams);
-        } catch (IOException e) {
-            champLeague = createLeague();
-        }
-    }
-
     // REQUIRES: parameter a to one of {0,1,2,3,4,5}.
     // EFFECTS: displays the type of menu depending on the value of a parameter.
     private void displayMenu(int a) {
         if (a == 0) {
-            displayMainMenu();
+            display.displayMainMenu();
         } else if (a == 1) {
-            displayTeamMenu();
+            display.displayTeamMenu();
         } else if (a == 2) {
-            displayTeamSelect();
+            display.displayTeamSelect(champLeague);
         } else if (a == 3) {
-            displayPlayerMenu();
+            display.displayPlayerMenu(activeTeam);
         } else if (a == 4) {
-            displayPlayerSelect();
+            display.displayPlayerSelect(activeTeam);
         } else {
-            displayPlayerTrainingMenu();
+            display.displayPlayerTrainingMenu(activePlayer);
         }
     }
 
-    // EFFECTS: displays main menu of options to user.
-    private void displayMainMenu() {
-        System.out.println("\n MAIN MENU. Choose from:");
-        System.out.println("\tm -> manage teams");
-        System.out.println("\tv -> view teams");
-        System.out.println("\te -> save and quit");
-    }
-
-    // EFFECTS: displays team menu after main menu to user
-    private void displayTeamMenu() {
-        System.out.println("\n TEAM MENU. Choose from:");
-        System.out.println("\tst -> to select team to view players or go to players");
-        System.out.println("\tat -> to add new team to the League");
-        System.out.println("\te -> back to previous");
-    }
-
-    // EFFECTS: displays all teams to select from after team menu.
-    private void displayTeamSelect() {
-        System.out.println("\n" + champLeague.getName() + " has " + champLeague.listOfTeams.size() + " teams:");
-        for (Team team : champLeague.listOfTeams) {
-            System.out.println("\t" + (team.name.substring(0, 3)).toLowerCase() + " -> " + team.name);
-        }
-        System.out.println("\te -> back to previous");
-    }
-
-    // EFFECTS: displays player menu for selected team after teamSelect menu.
-    private void displayPlayerMenu() {
-        System.out.println("\nChoose options for team " + activeTeam.name);
-        System.out.println("\tsp -> to select any player of team " + activeTeam.name + " for training");
-        System.out.println("\tap -> to add new player to the team " + activeTeam.name);
-        System.out.println("\te -> back to previous");
-    }
-
-    // EFFECTS: displays all players of selected team to select one.
-    private void displayPlayerSelect() {
-        System.out.println("\n" + activeTeam.name + " has " + activeTeam.listOfPlayers.size() + " players:");
-        for (Player player : activeTeam.listOfPlayers) {
-            System.out.println("\t" + (player.name.substring(0, 3)).toLowerCase() + " -> " + player.name);
-        }
-        System.out.println("\te -> back to previous");
-    }
-
-    // EFFECTS: displays player training menu for selected player.
-    private void displayPlayerTrainingMenu() {
-        System.out.println("\nFor player " + activePlayer.name + ":");
-        System.out.println("\tEnter y -> to train");
-        System.out.println("\tEnter e -> to go back to previous");
-    }
 
     // REQUIRES: parameter a to one of {0,1,2,3,4,5}.
     // EFFECTS: processes user command based on parameter a.
@@ -202,17 +110,9 @@ public class SoccerApp {
         if (command.equals("m")) {
             runTeamMenu();
         } else if (command.equals("v")) {
-            displayTeamNames();
+            display.displayTeamNames(champLeague);
         } else {
-            printInvalidInput();
-        }
-    }
-
-    // EFFECTS: prints all the teams in the League.
-    private void displayTeamNames() {
-        System.out.println(champLeague.getName() + " has " + champLeague.listOfTeams.size() + " teams:");
-        for (Team team : champLeague.listOfTeams) {
-            System.out.println(team.name);
+            display.printInvalidInput();
         }
     }
 
@@ -228,7 +128,7 @@ public class SoccerApp {
         } else if (command.equals("at")) {
             newTeam();
         } else {
-            printInvalidInput();
+            display.printInvalidInput();
         }
     }
 
@@ -268,7 +168,7 @@ public class SoccerApp {
         if (a == 1) {
             runPlayerMenu();
         } else {
-            printInvalidInput();
+            display.printInvalidInput();
         }
     }
 
@@ -284,7 +184,7 @@ public class SoccerApp {
         } else if (command.equals("ap")) {
             newPlayer();
         } else {
-            printInvalidInput();
+            display.printInvalidInput();
         }
     }
 
@@ -330,7 +230,7 @@ public class SoccerApp {
             runPlayerTrainingMenu();
 
         } else {
-            printInvalidInput();
+            display.printInvalidInput();
         }
     }
 
@@ -344,7 +244,7 @@ public class SoccerApp {
         if (command.equals("y")) {
             playerTraining();
         } else {
-            printInvalidInput();
+            display.printInvalidInput();
         }
     }
 
@@ -353,25 +253,13 @@ public class SoccerApp {
     //                    - train him and prints new rating.
     //                    - Otherwise, prints message to inform user that player has reached his potential.
     public void playerTraining() {
-        if (activePlayer.isTrainable()) {
+        try {
             activePlayer.trainPlayer();
             System.out.println(activePlayer.name + "'s new soccer rating is " + activePlayer.getSoccerRating() + ".");
-        } else {
+
+        } catch (NotTrainableException e) {
             System.out.println("The player " + activePlayer.name + " has reached his potential.");
             System.out.println("He can not be trained anymore.");
         }
     }
-
-    //EFFECTS: prints invalid input statement.
-    private void printInvalidInput() {
-        System.out.println("INVALID input. Please only select from the given options.");
-    }
 }
-
-
-
-
-
-
-
-

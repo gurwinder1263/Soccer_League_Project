@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,9 +46,9 @@ public class MainPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         String action = ae.getActionCommand();
         if (action.equals("load")) {
-            frame.loadTeams();
+            FootballApp.champLeague = FootballApp.data.loadTeams();
         } else if (action.equals("default")) {
-            frame.createLeague();
+            FootballApp.champLeague = FootballApp.data.createLeague();
         }
         removeAll();
         frame.switchToTeamsMenuPanel();

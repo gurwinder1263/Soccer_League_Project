@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 // Represents  a team with name, and list of players playing for it.
-public class Team implements Saveable {
+public class Team extends SoccerUnit implements Saveable {
     public static final int MAX_PLAYERS_IN_SQUAD = 25;
 
     public String name;
@@ -14,20 +14,23 @@ public class Team implements Saveable {
 
     // EFFECTS: constructs newly created Team with a name and empty list of players.
     public Team(String name) {
+        super(name);
         this.name = name;
-        listOfPlayers = new ArrayList<Player>(MAX_PLAYERS_IN_SQUAD);
+        listOfPlayers = new ArrayList<>(MAX_PLAYERS_IN_SQUAD);
     }
 
     // EFFECTS: constructs newly created Team with a name and list of players.
     public Team(String name, ArrayList<Player> players) {
+        super(name);
         this.name = name;
         listOfPlayers = players;
     }
 
     // EFFECTS: constructs newly created Team with a name and two players.
     public Team(String name, Player player, Player nextPlayer) {
+        super(name);
         this.name = name;
-        listOfPlayers = new ArrayList<Player>(MAX_PLAYERS_IN_SQUAD);
+        listOfPlayers = new ArrayList<>(MAX_PLAYERS_IN_SQUAD);
         listOfPlayers.add(0, player);
         listOfPlayers.add(1, nextPlayer);
     }
@@ -73,5 +76,18 @@ public class Team implements Saveable {
             printWriter.print(Reader.DELIMITER_1);
         }
         printWriter.println();
+    }
+
+    // EFFECTS: if the team contains the player,
+    //                     - return true.
+    //                     - Otherwise, return false.
+    @Override
+    public boolean isUnitPresent(SoccerUnit sc) {
+        for (Player player : listOfPlayers) {
+            if ((player.getName()).equalsIgnoreCase(sc.name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

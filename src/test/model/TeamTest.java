@@ -42,4 +42,12 @@ public class TeamTest {
         assertFalse(team2.isPlayerPresent(player4));
     }
 
+    @Test
+    void isUnitPresentTest() {
+        team2.signNewPlayer(player3);
+
+        assertTrue(team2.isUnitPresent(player3));
+        assertFalse(team2.isPlayerPresent(player4));
+    }
+
 }

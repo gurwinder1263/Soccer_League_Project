@@ -1,18 +1,10 @@
-package ui;
+package ui.gui;
 
 import model.League;
-import model.Player;
-import model.Team;
-import persistence.Reader;
-import persistence.Writer;
+import ui.console.DataManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 // Fantasy Soccer Application
 // created with the use of class TellerApp in Project <AccountNotRobust>.
@@ -22,8 +14,7 @@ public class FootballApp extends JFrame {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 800;
     public static League champLeague;
-    private Team activeTeam;
-    private Player activePlayer;
+    public static DataManager data = new DataManager();
 
 
     // Constructs main window
@@ -40,12 +31,12 @@ public class FootballApp extends JFrame {
 
     @Override
     public int getWidth() {
-        return this.WIDTH;
+        return WIDTH;
     }
 
     @Override
     public int getHeight() {
-        return this.HEIGHT;
+        return HEIGHT;
     }
 
     //MODIFIES:this
@@ -95,47 +86,6 @@ public class FootballApp extends JFrame {
     private void centreOnScreen() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
-    }
-
-    //MODIFIES: this
-    //EFFECTS: creates a object of League class from real world data.
-    public void createLeague() {
-        Player ronaldo = new Player("Cristiano Ronaldo", 35, "LW", 94);
-        Player dybala = new Player("Paulo Dybala", 26, "CAM", 89);
-        Player ramos = new Player("Sergio Ramos", 34, "CB", 88);
-        Player benzema = new Player("Karim Benzema", 32, "ST", 86);
-        Team juventus = new Team("Juventus FC", ronaldo, dybala);
-        Team madrid = new Team("Real Madrid FC", ramos, benzema);
-        champLeague = new League("UEFA Champions League", juventus, madrid);
-    }
-
-    // EFFECTS: saves state of all teams to TEAMS_FILE
-    public void saveTeams() {
-        try {
-            Writer writer = new Writer(new File(TEAMS_FILE));
-            for (Team team : champLeague.listOfTeams) {
-                writer.write(team);
-            }
-            writer.close();
-            System.out.println("All of the teams have been saved properly.");
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save teams to destination file.");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            // this is due to a programming error
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: loads teams data from TEAMS_FILE, if that file exists;
-    // otherwise initializes the league with default teams.
-    public void loadTeams() {
-        try {
-            ArrayList<Team> teams = Reader.readTeams(new File(TEAMS_FILE));
-            champLeague = new League("Uefa Champions League",teams);
-        } catch (IOException e) {
-            createLeague();
-        }
     }
 }
 

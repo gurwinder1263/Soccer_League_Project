@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 // Represents  a League with name, and list of teams contained in it.
-public class League {
+public class League extends SoccerUnit {
     private static final int SEASON_YEAR = 2020;
     private static final int MAX_NUM_TEAMS = 10;
 
@@ -12,18 +12,21 @@ public class League {
 
     // EFFECTS: constructs newly created League with a name and empty list of teams.
     public League(String name) {
+        super(name);
         this.name = name;
         listOfTeams = new ArrayList<>(MAX_NUM_TEAMS);
     }
 
     // EFFECTS: constructs newly created League with a name and list of teams.
     public League(String name, ArrayList<Team> teams) {
+        super(name);
         this.name = name;
         listOfTeams = teams;
     }
 
     // EFFECTS: constructs newly created League with a name and two teams.
     public League(String name, Team team1, Team team2) {
+        super(name);
         this.name = name;
         listOfTeams = new ArrayList<>(MAX_NUM_TEAMS);
         listOfTeams.add(0, team1);
@@ -48,6 +51,16 @@ public class League {
     public boolean isTeamPresent(Team teamChecked) {
         for (Team team : listOfTeams) {
             if ((team.getName()).equalsIgnoreCase(teamChecked.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isUnitPresent(SoccerUnit sc) {
+        for (Team team : listOfTeams) {
+            if ((team.getName()).equals(sc.name)) {
                 return true;
             }
         }

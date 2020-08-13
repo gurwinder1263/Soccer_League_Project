@@ -41,3 +41,27 @@ Instructions for Grader
 - You can save the state of my application by clicking on (Save and Quit) button which appears on the second screen.
 - You can reload the state of my application by clicking on (Load Save Teams) button which appears at the start
 of the app.
+
+Phase 4:Task 2 *Test and design a robust class* 
+- In model package, class Player has a method trainPlayer() that throws NotTrainableException and, it has two distinct
+test methods in corresponding test class.
+
+Phase 4:Task 3
+Problems:
+- In ui package, class SoccerApp completely lacks cohesion. It is displaying menus, processing user commands and,
+saving and loading data to/from file.
+- In ui package, two different types of ui (console and gui) both have their own functionality to save and load data
+to/from file, and create default data (or league). Thus, it is undesired duplication.
+- There is a miniature amount of duplication in all classes of ui.gui package in terms of implementation
+of aspects of Java Swing library.
+- In persistence, class reader lacks a bit of cohesion. It reads data from the file in some format and, it also 
+parses that format to correct format.
+
+
+Solutions to 2 important corresponding problems.
+- New classes DataManager and DisplayManager have been created to ensure single responsibility principle.
+ DataManager deals with saving, loading, and introducing data. And, DisplayManager deals with display
+ of all menus and print outs to users in ui.console package.
+ 
+- The creation of new Class DataManager ensures that its methods are shared by both ui.console and ui.gui packages to
+avoid duplication of code.
