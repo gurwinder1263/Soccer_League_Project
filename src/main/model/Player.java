@@ -3,7 +3,7 @@ package model;
 import exceptions.NotTrainableException;
 
 // Represents a player with name, age, position,and overall soccer rating.
-public class Player extends SoccerUnit {
+public class Player {
     public static final String SEX = "M";
     public static final int MAX_RATING = 100; // Attributes are rated out of 100.
     public static final int RATING_INCREASE_PER_TRAINING = 3; // increase in overall rating per training session.
@@ -13,8 +13,8 @@ public class Player extends SoccerUnit {
     public String position;
     public int soccerRating;// an average of player's shooting, passing, dribbling and defending skills.
 
+    //EFFECTS: construct newly created player with name, age, position and Soccer rating.
     public Player(String name, int age, String position, int soccerRating) {
-        super(name);
         this.name = name;
         this.age = age;
         this.position = position;
